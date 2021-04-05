@@ -7,12 +7,12 @@ import numerapi
 def credentials():
     dotenv_path = 'num_config.env'
     load_dotenv(dotenv_path=dotenv_path)
-    #pub_id = os.getenv('PUBLIC_ID')
-    #priv_key = os.getenv('PRIVATE_KEY')
-    #latest_round = os.getenv('LATEST_ROUND')
-    pub_id = "C4Q5XUHAH3MSMAHHHRHSQWHG2SUW5Q54"
-    priv_key = "QSBJY72HUPPDJBP3UF7JPFHRK4CV3ITWOEWQNWXD44RUTVORXQCB5BYIQK7I4CMD"
-    latest_round = 156
+    pub_id = os.getenv('PUBLIC_ID')
+    priv_key = os.getenv('PRIVATE_KEY')
+    latest_round = os.getenv('LATEST_ROUND')
+    #pub_id = "C4Q5XUHAH3MSMAHHHRHSQWHG2SUW5Q54"
+    #priv_key = "QSBJY72HUPPDJBP3UF7JPFHRK4CV3ITWOEWQNWXD44RUTVORXQCB5BYIQK7I4CMD"
+    #latest_round = 156
     return {'PUBLIC_ID': pub_id, 'PRIVATE_KEY': priv_key, 'LATEST_ROUND': latest_round}
 
 
@@ -39,8 +39,8 @@ def main():
         verbosity='INFO', public_id=keys['PUBLIC_ID'], secret_key=keys['PRIVATE_KEY'])
     keys['LATEST_ROUND'] = download_data(numapi, keys)
     update_env_file(keys)
-    gbm_hpo.main()
-    ae_hpo.main()
+    #gbm_hpo.main()
+    #ae_hpo.main()
     nn_hpo.main(train_ae=True)
 
 if __name__ == '__main__':

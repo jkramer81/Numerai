@@ -94,7 +94,6 @@ def optimize(trial: optuna.Trial, data_dict):
                            min_delta=0.0005, mode='min')
         trainer = pl.Trainer(logger=False,
                              max_epochs=500,
-                             gpus=1,
                              callbacks=[checkpoint_callback, logger, PyTorchLightningPruningCallback(
                                  trial, monitor='val_mse'), es],
                              precision=16)

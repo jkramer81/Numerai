@@ -136,7 +136,7 @@ def train_ae_model(data_dict):
     es = EarlyStopping(monitor='val_loss', patience=10,
                        min_delta=0.005, mode='min')
     trainer = pl.Trainer(max_epochs=100,
-                         gpus=1,
+                         gpus=0,
                          callbacks=[es])
     trainer.fit(
         model, train_dataloader=dataloaders['train'], val_dataloaders=dataloaders['val'])
