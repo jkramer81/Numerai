@@ -96,9 +96,9 @@ def loptimize(trial, data_dict: dict):
 
 
 def main():
-    api_token = 'eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vdWkubmVwdHVuZS5haSIsImFwaV91cmwiOiJodHRwczovL3VpLm5lcHR1bmUuYWkiLCJhcGlfa2V5IjoiYWQxMjg3OGEtMGI1NC00NzFmLTg0YmMtZmIxZjcxZDM2NTAxIn0='
+    api_token = 'eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiIzMGQ1MWZiNy1iYjNlLTQ3NDctOTE4OS1lNzhlNmVlYmUwMzYifQ=='
     neptune.init(api_token=api_token,
-                 project_qualified_name='jamesmccarthy65/Numerai')
+                 project_qualified_name='kramerji/Numerai')
     data = utils.load_data('data/', mode='train')
     data, target, features, era = utils.preprocess_data(data, nn=True)
     data_dict = {'data':     data, 'target': target,

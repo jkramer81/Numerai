@@ -125,9 +125,9 @@ def main(train_ae):
 
     data_dict['hidden'] = create_hidden_rep(model, data_dict)
     data_dict['hidden_true'] = True
-    api_token = 'eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vdWkubmVwdHVuZS5haSIsImFwaV91cmwiOiJodHRwczovL3VpLm5lcHR1bmUuYWkiLCJhcGlfa2V5IjoiYWQxMjg3OGEtMGI1NC00NzFmLTg0YmMtZmIxZjcxZDM2NTAxIn0='
+    api_token = 'eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiIzMGQ1MWZiNy1iYjNlLTQ3NDctOTE4OS1lNzhlNmVlYmUwMzYifQ=='
     neptune.init(api_token=api_token,
-                 project_qualified_name='jamesmccarthy65/Numerai')
+                 project_qualified_name='kramerji/Numerai')
     nn_exp = neptune.create_experiment('Resnet_HPO')
     nn_neptune_callback = opt_utils.NeptuneCallback(experiment=nn_exp)
     study = optuna.create_study(direction='minimize')
