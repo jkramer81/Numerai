@@ -92,11 +92,14 @@ def optimize(trial: optuna.Trial, data_dict):
             dataset, indexes={'train': train_idx, 'val': val_idx}, batch_size=p['batch_size'])
         es = EarlyStopping(monitor='val_mse', patience=10,
                            min_delta=0.0005, mode='min')
+        print("pl.Trainer...")
         trainer = pl.Trainer(logger=False,
                              max_epochs=500,
+                             gpus = 0,
                              callbacks=[checkpoint_callback, logger, PyTorchLightningPruningCallback(
                                  trial, monitor='val_mse'), es],
-                             precision=16)
+                             precision=32)
+        print("Trainer.fit...")
         trainer.fit(
             model, train_dataloader=dataloaders['train'], val_dataloaders=dataloaders['val'])
         val_loss = logger.metrics[-1]['val_loss'].item()
@@ -114,8 +117,10 @@ def main(train_ae):
     data_dict = {'data': data, 'target': target,
                  'features': features, 'era': era}
     if train_ae:
+        print("Train AE...")
         model = train_ae_model(data_dict=data_dict)
     else:
+        print("Load AE Model...")
         p = joblib.load('./saved_models/parameters/ae_params.pkl')
         p['input_size'] = len(data_dict['features'])
         p['output_size'] = 1
@@ -130,7 +135,7 @@ def main(train_ae):
     nn_exp = neptune.create_experiment('Resnet_HPO')
     nn_neptune_callback = opt_utils.NeptuneCallback(experiment=nn_exp)
     study = optuna.create_study(direction='minimize')
-
+    print("Optuna Study...")
     study.optimize(lambda trial: optimize(trial, data_dict=data_dict), n_trials=100,
                    callbacks=[nn_neptune_callback])
     joblib.dump(

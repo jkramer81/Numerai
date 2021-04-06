@@ -1,3 +1,4 @@
+import joblib
 import torch
 import torch.nn as nn
 import numpy as np
@@ -123,6 +124,7 @@ def train_ae_model(data_dict):
          'loss_recon': nn.MSELoss,
          'embedding': True}
     # TODO Fix this
+    joblib.dump(p,'./saved_models/parameters/ae_params.pkl')
     train_idx = np.arange(start=0, stop=452205, step=1, dtype=np.int).tolist()
     val_idx = np.arange(start=452206, stop=len(
         data_dict['data']), step=1, dtype=np.int).tolist()
