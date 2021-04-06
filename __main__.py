@@ -41,7 +41,8 @@ def main():
     update_env_file(keys)
     #gbm_hpo.main()
     #ae_hpo.main()
-    nn_hpo.main(train_ae=True)
+    print("nn_hpo...")
+    nn_hpo.main(train_ae=False)
 
 if __name__ == '__main__':
     main()
