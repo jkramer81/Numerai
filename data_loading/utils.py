@@ -266,7 +266,7 @@ def create_predictions(root_dir: str = './data', models: dict = {}, hidden=True,
             p_lgb = models['lgb'][1]
             x_val = data_dict['data']
             df['prediction_lgb'] = model_lgb.predict(x_val)
-        df = df[['id', 'prediction_lgb']]
+            df = df[['id', 'prediction_lgb']]
         pred_path = f'{get_data_path(root_dir)}/predictions/{era[0]}'
         df.to_csv(f'{pred_path}.csv')
 
