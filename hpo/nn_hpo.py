@@ -82,7 +82,7 @@ def optimize(trial: optuna.Trial, data_dict):
     p = create_param_dict(trial, trial_file)
     p['batch_size'] = trial.suggest_int('batch_size', 8000, 15000)
     if data_dict.get('hidden_true', None):
-        p['hidden_len'] = data_dict['hidden'].shape[-1]
+        p['hidden_len'] = data_dict['hidden']['hidden'].shape[-1]
     for i, (train_idx, val_idx) in enumerate(gts.split(data_dict['data'], groups=data_dict['era'])):
         model = Classifier(input_size, output_size, params=p)
         # model.apply(init_weights)

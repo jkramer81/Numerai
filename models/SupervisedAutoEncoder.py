@@ -149,7 +149,7 @@ def train_ae_model(data_dict):
 def create_hidden_rep(model, data_dict):
     model.eval()
     index = np.linspace(
-        0, data_dict['data'].shape[0], data_dict['data'].shape[0], dtype='int').tolist()
+        0, data_dict['data'].shape[0]-1, data_dict['data'].shape[0], dtype='int').tolist()
     dataset = utils.FinData(
         data_dict['data'], target=data_dict['target'], era=data_dict['era'])
     batch_size = 5000
