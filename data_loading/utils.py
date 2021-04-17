@@ -49,7 +49,7 @@ class FinData(Dataset):
                     'era':    torch.Tensor([self.era[index]]),
                 }
             if self.hidden is not None:
-                sample['hidden'] = torch.Tensor(self.hidden[index])
+                sample['hidden'] = torch.Tensor(self.hidden['hidden'][index])
         return sample
 
     def __len__(self):
@@ -162,19 +162,19 @@ def create_dataloaders(dataset: Dataset, indexes: dict, batch_size):
         train_sampler = BatchSampler(
             train_set.indices, batch_size=batch_size, drop_last=False)
         dataloaders['train'] = DataLoader(
-            dataset, sampler=train_sampler, num_workers=4, pin_memory=True, shuffle=False)
+            dataset, sampler=train_sampler, num_workers=2, pin_memory=False, shuffle=False)
     if val_idx:
         val_set = Subset(dataset, val_idx)
         val_sampler = BatchSampler(
             val_set.indices, batch_size=batch_size, drop_last=False)
         dataloaders['val'] = DataLoader(
-            dataset, sampler=val_sampler, num_workers=4, pin_memory=True, shuffle=False)
+            dataset, sampler=val_sampler, num_workers=2, pin_memory=False, shuffle=False)
     if test_idx:
         test_set = Subset(dataset, test_idx)
         test_sampler = BatchSampler(
             test_set.indices, batch_size=batch_size, drop_last=False)
         dataloaders['test'] = DataLoader(
-            dataset, sampler=test_sampler, num_workers=4, pin_memory=True, shuffle=False)
+            dataset, sampler=test_sampler, num_workers=2, pin_memory=False, shuffle=False)
     return dataloaders
 
 
