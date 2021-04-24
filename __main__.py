@@ -39,10 +39,10 @@ def main():
         verbosity='INFO', public_id=keys['PUBLIC_ID'], secret_key=keys['PRIVATE_KEY'])
     keys['LATEST_ROUND'] = download_data(numapi, keys)
     update_env_file(keys)
-    #gbm_hpo.main()
+    gbm_hpo.main()
     #ae_hpo.main()
     print("nn_hpo...")
-    nn_hpo.main(train_ae=False)
+   # nn_hpo.main(train_ae=False)
 
 if __name__ == '__main__':
     main()

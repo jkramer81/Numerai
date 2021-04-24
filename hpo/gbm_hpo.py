@@ -26,9 +26,9 @@ def optimize(trial: optuna.trial.Trial, data_dict: dict):
          'alpha':            trial.suggest_uniform('alpha', 0.05, 0.2),
          'objective':        'reg:squarederror',
          'booster':          'gbtree',
-         'tree_method':      'gpu_hist',
+         'tree_method':      'hist',
          'verbosity':        1,
-         'n_jobs':           10,
+         'n_jobs':           4,
          'eval_metric':      'rmse'}
     print('Choosing parameters:', p)
     scores = []
@@ -67,7 +67,7 @@ def loptimize(trial, data_dict: dict):
          'boosting':         trial.suggest_categorical('boosting', ['gbdt', 'goss', 'rf']),
          'objective':        'regression',
          'verbose':          1,
-         'n_jobs':           10,
+         'n_jobs':           4,
          'metric':           'mse'}
     if p['boosting'] == 'goss':
         p['bagging_freq'] = 0
