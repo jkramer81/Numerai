@@ -262,10 +262,14 @@ def create_predictions(root_dir: str = './data', models: dict = {}, hidden=True,
             x_val = data_dict['data']
             df['prediction_xgb'] = model_xgboost.predict(x_val)
         if models.get('lgb', None):
-            model_lgb = models['lgb'][0]
+            models_lgb = models['lgb'][0]
             p_lgb = models['lgb'][1]
             x_val = data_dict['data']
-            df['prediction_lgb'] = model_lgb.predict(x_val)
+            preds = []
+            for model in models_lgb:
+                preds.append(model.predict(x_val))
+            predictions_lgb = np.mean(preds,axis=0)
+            df['prediction_lgb'] = pd.DataFrame.from_dict({'era':era,'preds':predictions_lgb,'target':target.T})
             df = df[['id', 'prediction_lgb']]
         pred_path = f'{get_data_path(root_dir)}/predictions/{era[0]}'
         df.to_csv(f'{pred_path}.csv')
