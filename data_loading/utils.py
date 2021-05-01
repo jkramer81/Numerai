@@ -269,7 +269,8 @@ def create_predictions(root_dir: str = './data', models: dict = {}, hidden=True,
             for model in models_lgb:
                 preds.append(model.predict(x_val))
             predictions_lgb = np.mean(preds,axis=0)
-            df['prediction_lgb'] = pd.DataFrame.from_dict({'era':era,'preds':predictions_lgb,'target':target.T})
+            #df['prediction_lgb'] = pd.DataFrame.from_dict({'era':era,'preds':predictions_lgb,'target':target.T})
+            #f['prediction_lgb'] = 
             df = df[['id', 'prediction_lgb']]
         pred_path = f'{get_data_path(root_dir)}/predictions/{era[0]}'
         df.to_csv(f'{pred_path}.csv')
@@ -304,6 +305,20 @@ def create_prediction_file(root_dir='./data', eras=None):
     df = pd.concat(dfs)
     df = df[['id', 'prediction_lgb']]
     df.columns = ['id', 'prediction']
-    df.to_csv(f'{pred_path}predictions.csv')
+    df[['id',"prediction"]].to_csv(f'{pred_path}predictions.csv',index=False)
 
     return df
+
+def correlation(predictions, targets):
+    ranked_preds = predictions.rank(pct=True, method="first")
+    return np.corrcoef(ranked_preds, targets)[0, 1]
+
+
+# convenience method for scoring
+def score(df):
+    return correlation(df["preds"], df["target"])
+
+
+# Payout is just the score cliped at +/-25%
+def payout(scores):
+    return scores.clip(lower=-0.25, upper=0.25)
